@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madasu Yuva Teja | Portfolio</title>
+    <title>Madasu Yuva Teja | Java Full Stack Developer</title>
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Portfolio of Madasu Yuva Teja - Passionate Web Developer specializing in React JS, HTML, CSS, and JavaScript.">
+    <meta name="description" content="Portfolio of Madasu Yuva Teja - Experienced Java Full Stack Developer specializing in Spring Boot, React, and Microservices.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -95,21 +95,6 @@
             position: relative;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-light);
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
         .nav-links a:hover {
             color: var(--primary-light);
         }
@@ -144,7 +129,7 @@
         .hero p {
             font-size: clamp(1rem, 4vw, 1.25rem);
             color: var(--text-dim);
-            max-width: 600px;
+            max-width: 700px;
             margin-bottom: 40px;
         }
 
@@ -174,7 +159,7 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem);
             font-weight: 800;
             margin-bottom: 60px;
             text-align: center;
@@ -190,6 +175,8 @@
 
         .about-img-container {
             position: relative;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .about-img-container::before {
@@ -200,20 +187,20 @@
             width: 100%;
             height: 100%;
             border: 2px solid var(--primary);
-            border-radius: 20px;
+            border-radius: 24px;
             z-index: -1;
         }
 
         .about-img {
             width: 100%;
-            border-radius: 20px;
+            aspect-ratio: 1/1.2;
+            object-fit: cover;
+            border-radius: 24px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            filter: grayscale(20%);
             transition: 0.5s;
         }
 
         .about-img:hover {
-            filter: grayscale(0%);
             transform: scale(1.02);
         }
 
@@ -232,7 +219,7 @@
         /* SKILLS */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 25px;
         }
 
@@ -251,15 +238,16 @@
             transform: translateY(-10px);
         }
 
-        .skill-card i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        .skill-card h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
             color: var(--primary-light);
         }
 
-        .skill-card h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
+        .skill-card p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 5px;
         }
 
         /* PROJECTS */
@@ -280,7 +268,6 @@
         .project-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary-light);
-            background: rgba(255, 255, 255, 0.05);
         }
 
         .project-img {
@@ -307,7 +294,7 @@
 
         /* CONTACT */
         .contact-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1.5fr;
@@ -383,16 +370,19 @@
         /* MOBILE MENU */
         .menu-toggle {
             display: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
+            z-index: 1001;
         }
 
         @media (max-width: 992px) {
             .about-grid {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
             .contact-container {
                 grid-template-columns: 1fr;
+                padding: 30px;
             }
         }
 
@@ -401,13 +391,31 @@
                 padding: 15px 5%;
             }
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.5s ease-in-out;
+                z-index: 1000;
+                border-left: 1px solid var(--glass-border);
+            }
+            .nav-links.active {
+                right: 0;
             }
             .menu-toggle {
                 display: block;
             }
             section {
                 padding: 80px 5%;
+            }
+            .hero h1 {
+                font-size: 3rem;
             }
         }
     </style>
@@ -417,22 +425,22 @@
     <!-- NAVBAR -->
     <nav>
         <div class="logo">M.Y.T.</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" onclick="toggleMenu()">Home</a>
+            <a href="#about" onclick="toggleMenu()">About</a>
+            <a href="#skills" onclick="toggleMenu()">Skills</a>
+            <a href="#projects" onclick="toggleMenu()">Projects</a>
+            <a href="#contact" onclick="toggleMenu()">Contact</a>
         </div>
-        <div class="menu-toggle">☰</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     </nav>
 
     <!-- HERO -->
     <section class="hero" id="home">
         <h1 data-aos="fade-up">Hi, I'm <span>Yuva Teja</span></h1>
-        <p data-aos="fade-up" data-aos-delay="200">A passionate Web Developer dedicated to building premium digital experiences that are functional, beautiful, and user-centric.</p>
+        <p data-aos="fade-up" data-aos-delay="200">A dedicated <strong>Java Full Stack Developer</strong> building scalable, secure, and high-performance web applications from end to end.</p>
         <div data-aos="fade-up" data-aos-delay="400">
-            <a href="#contact" class="btn btn-primary">Let's Talk</a>
+            <a href="#contact" class="btn btn-primary">Connect with Me</a>
         </div>
     </section>
 
@@ -441,72 +449,92 @@
         <h2 class="section-title" data-aos="fade-down">About Me</h2>
         <div class="about-grid">
             <div class="about-img-container" data-aos="fade-right">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&h=800" alt="Profile" class="about-img">
+                <img src="imageses/left_photo.png" alt="Madasu Yuva Teja" class="about-img" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&h=800'">
             </div>
             <div class="about-text" data-aos="fade-left">
-                <h3>Crafting Digital Excellence</h3>
-                <p>Hello! I am <strong>Madasu Yuva Teja</strong>, a passionate web developer with experience in creating responsive and interactive websites. I specialize in HTML, CSS, JavaScript, and modern frameworks like React JS.</p>
-                <p>I enjoy learning new technologies and building projects that solve real-world problems. My goal is to create web experiences that are not only functional but also visually appealing.</p>
-                <a href="#projects" class="btn btn-primary" style="margin-top: 20px;">View My Work</a>
+                <h3>Java Full Stack Developer</h3>
+                <p>Hello! I am <strong>Madasu Yuva Teja</strong>, a passionate <strong>Java Full Stack Developer</strong> with extensive experience in building robust back-end systems and dynamic front-end interfaces.</p>
+                <p>I specialize in crafting secure and scalable applications using <strong>Java, Spring Boot, Hibernate, and Microservices</strong> on the backend, combined with modern frontend technologies like <strong>React JS and Bootstrap</strong>.</p>
+                <p>I enjoy solving complex architectural challenges and delivering high-quality code that drives business value. My goal is to create seamless digital experiences that are both technically sound and user-friendly.</p>
+                <a href="#skills" class="btn btn-primary" style="margin-top: 20px;">Technical Skills</a>
             </div>
         </div>
     </section>
 
     <!-- SKILLS -->
     <section id="skills" style="background: rgba(255, 255, 255, 0.02);">
-        <h2 class="section-title" data-aos="fade-down">Tech Stack</h2>
+        <h2 class="section-title" data-aos="fade-down">Core Competencies</h2>
         <div class="skills-grid">
             <div class="skill-card" data-aos="zoom-in" data-aos-delay="100">
-                <h4>HTML5</h4>
+                <h4>Java & J2EE</h4>
+                <p>Advanced Core Java, Multithreading, Streams API</p>
             </div>
             <div class="skill-card" data-aos="zoom-in" data-aos-delay="200">
-                <h4>CSS3</h4>
+                <h4>Spring Boot</h4>
+                <p>REST APIs, Security, Spring Data JPA</p>
             </div>
             <div class="skill-card" data-aos="zoom-in" data-aos-delay="300">
-                <h4>JavaScript</h4>
+                <h4>Microservices</h4>
+                <p>API Gateway, Service Discovery, Config Server</p>
             </div>
             <div class="skill-card" data-aos="zoom-in" data-aos-delay="400">
-                <h4>React JS</h4>
+                <h4>SQL & NoSQL</h4>
+                <p>MySQL, PostgreSQL, Oracle, MongoDB</p>
             </div>
             <div class="skill-card" data-aos="zoom-in" data-aos-delay="500">
-                <h4>Bootstrap</h4>
+                <h4>React JS</h4>
+                <p>Hooks, Redux, Context API, Modern UI</p>
             </div>
             <div class="skill-card" data-aos="zoom-in" data-aos-delay="600">
-                <h4>Git & GitHub</h4>
+                <h4>DevOps & Tools</h4>
+                <p>Git, Docker, Jenkins, Maven, AWS</p>
             </div>
         </div>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects">
-        <h2 class="section-title" data-aos="fade-down">Featured Projects</h2>
+        <h2 class="section-title" data-aos="fade-down">Key Projects</h2>
         <div class="projects-grid">
-            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?fit=crop&w=600&h=400" alt="E-commerce" class="project-img">
+            <!-- Project 1 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="100" onclick="showProjectDetails('Prime Basket - Grocery Application', 'A feature-rich grocery delivery application with real-time tracking, secure payments, and a seamless user experience built using the Java Full Stack.')">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?fit=crop&w=600&h=400" alt="Prime Basket" class="project-img">
                 <div class="project-content">
-                    <h3>E-commerce Hub</h3>
-                    <p>A high-performance online store built with React and modern state management. Features seamless cart logic and responsive design.</p>
-                    <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">View Case Study</a>
+                    <h3>Prime Basket - Grocery Application</h3>
+                    <p>A comprehensive grocery delivery platform with inventory management and secure user authentication.</p>
+                    <button class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">View Details</button>
                 </div>
             </div>
-            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://images.unsplash.com/photo-1545235617-946f9160569e?fit=crop&w=600&h=400" alt="Portfolio" class="project-img">
+            <!-- Project 2 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="200" onclick="showProjectDetails('Ecommerce Website', 'A modern, high-performance ecommerce platform developed using React JS and Tailwind CSS. Features include a responsive product catalog, seamless cart management, and optimized UI/UX components.')">
+                <img src="https://images.unsplash.com/photo-1557821552-17105176677c?fit=crop&w=600&h=400" alt="Ecommerce Website" class="project-img">
                 <div class="project-content">
-                    <h3>Premium Portfolio</h3>
-                    <p>This exact portfolio! Demonstrating expertise in modern CSS techniques, glassmorphism, and performance optimization.</p>
-                    <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">Current Page</a>
+                    <h3>Ecommerce Website</h3>
+                    <p>Built with <strong>React</strong> and <strong>Tailwind CSS</strong> for a premium, fast, and responsive shopping experience.</p>
+                    <button class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">View Details</button>
                 </div>
             </div>
-            <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                <img src="https://images.unsplash.com/photo-1550745679-33d01608216a?fit=crop&w=600&h=400" alt="Game" class="project-img">
+            <!-- Project 3 -->
+            <div class="project-card" data-aos="fade-up" data-aos-delay="300" onclick="showProjectDetails('House Price Prediction', 'An advanced Data Science project utilizing Python and Machine Learning algorithms to predict real estate prices. Includes data preprocessing, feature engineering, and model evaluation for high accuracy.')">
+                <img src="https://images.unsplash.com/photo-1582408921715-18e7806365c1?fit=crop&w=600&h=400" alt="House Price Prediction" class="project-img">
                 <div class="project-content">
-                    <h3>Interactive JS Engine</h3>
-                    <p>An interactive gaming engine demonstrating advanced DOM manipulation and JavaScript logic for smooth gameplay.</p>
-                    <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">Play Game</a>
+                    <h3>House Price Prediction</h3>
+                    <p>Leveraging <strong>Data Science</strong> and Machine Learning to provide accurate real estate valuation models.</p>
+                    <button class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">View Details</button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Project Detail Modal (Simplified for now) -->
+    <div id="projectModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.9); z-index:2000; justify-content:center; align-items:center; backdrop-filter: blur(10px);">
+        <div style="background:var(--bg-dark); padding:40px; border-radius:30px; border:1px solid var(--glass-border); max-width:500px; width:90%; text-align:center; position:relative;">
+            <span onclick="closeProjectModal()" style="position:absolute; top:20px; right:25px; cursor:pointer; font-size:2rem; color:var(--text-dim);">&times;</span>
+            <h3 id="modalTitle" style="font-size:1.8rem; margin-bottom:20px; color:var(--primary-light);"></h3>
+            <p id="modalDescription" style="color:var(--text-dim); line-height:1.6; margin-bottom:30px;"></p>
+            <button class="btn btn-primary" onclick="closeProjectModal()">Close</button>
+        </div>
+    </div>
 
     <!-- CONTACT -->
     <section id="contact">
@@ -543,7 +571,7 @@
     </section>
 
     <footer style="text-align: center; padding: 40px; border-top: 1px solid var(--glass-border); color: var(--text-dim);">
-        <p>&copy; 2026 Madasu Yuva Teja. Built with ❤️ and Modern Web Tech.</p>
+        <p>&copy; 2026 Madasu Yuva Teja. Built with ❤️ and Java Stack Excellence.</p>
     </footer>
 
     <!-- AOS JS -->
@@ -556,29 +584,37 @@
             offset: 100
         });
 
+        // Project Modal Functions
+        function showProjectDetails(title, description) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = description;
+            document.getElementById('projectModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeProjectModal() {
+            document.getElementById('projectModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
         // Contact Form Submission
         document.getElementById("contactForm").addEventListener("submit", function(e) {
             e.preventDefault();
-            alert("Thanks for reaching out, " + document.getElementById("name").value + "! This is a simulation, but your message would be sent successfully.");
+            alert("Thanks for reaching out, " + document.getElementById("name").value + "! I will get back to you soon regarding Java opportunities.");
             this.reset();
         });
 
-        // Simple Mobile Menu Toggle
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.display = 'none';
-            } else {
-                navLinks.style.display = 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '70px';
-                navLinks.style.left = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.background = 'rgba(15, 23, 42, 0.95)';
-                navLinks.style.padding = '20px';
-                navLinks.style.textAlign = 'center';
-            }
+        // Smooth Scroll handling for mobile menu close
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
         });
     </script>
 </body>
