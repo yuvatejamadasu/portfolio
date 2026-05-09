@@ -1,3 +1,7 @@
+import groceryImg from '../assets/projects/grocery.png';
+import ecommerceImg from '../assets/projects/ecommerce.png';
+import housePriceImg from '../assets/projects/house-price.png';
+
 export const portfolioData = {
   name: "Madasu Yuva Teja",
   role: "Java Full Stack Developer",
@@ -20,21 +24,22 @@ export const portfolioData = {
       title: "Prime Basket - Grocery Application",
       shortDesc: "A comprehensive grocery delivery platform with inventory management.",
       fullDesc: "A feature-rich grocery delivery application with real-time tracking, secure payments, and a seamless user experience built using the Java Full Stack.",
-      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?fit=crop&w=600&h=400"
+      image: groceryImg
     },
     {
       id: 2,
       title: "Ecommerce Website",
       shortDesc: "Built with React and Tailwind CSS for a premium shopping experience.",
       fullDesc: "A modern, high-performance ecommerce platform developed using React JS and Tailwind CSS. Features include a responsive product catalog, seamless cart management, and optimized UI/UX components.",
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?fit=crop&w=600&h=400"
+      image: ecommerceImg
     },
     {
       id: 3,
       title: "House Price Prediction",
       shortDesc: "Leveraging Data Science to provide accurate real estate valuation.",
       fullDesc: "An advanced Data Science project utilizing Python and Machine Learning algorithms to predict real estate prices. Includes data preprocessing, feature engineering, and model evaluation for high accuracy.",
-      image: "https://images.unsplash.com/photo-1582408921715-18e7806365c1?fit=crop&w=600&h=400"
+      image: housePriceImg
     }
   ]
 };
+
